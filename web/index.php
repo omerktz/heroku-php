@@ -22,13 +22,15 @@ $app->get('/', function() use($app) {
   return $app['twig']->render('index.twig');
 });
 
+$app['monolog']->addDebug('loading users');
 $lines = file('users.txt');
-foreach($response_lines as $line) {
+foreach($lines as $line) {
     $bits = explode(':', $line);
     $user_name = array_shift($bits);
     $user_pass = implode('=', $bits);
     $users[$user_name] = $user_pass;
 }
+$app['monolog']->addDebug('loaded {count($users)} users');
 
 $app->get('/static', function() use($app) {
   $app['monolog']->addDebug('static page');
