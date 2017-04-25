@@ -17,9 +17,33 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 // Our web handlers
 
-$app->get('/', function() use($app) {
-  $app['monolog']->addDebug('logging output.');
-  return $app['twig']->render('index.twig');
+$lines = file('users.txt');
+$users = array()
+foreach($response_lines as $line) {
+    $bits = explode(':', $line);
+    $user_name = array_shift($bits);
+    $user_pass = implode('=', $bits);
+    $users[$user_name] = $user_pass;
+}
+
+$app->get('/static', function() use($app) {
+  $app['monolog']->addDebug('static page');
+  return $app['twig']->render('static.twig');
+});
+
+$app->get('/dynamic', function() use($app) {
+	$app['monolog']->addDebug('dynamic page');
+	$user = $_REQUEST['user']
+	$pass = $_REQUEST['pass']
+	if(array_key_exists($user,$users)) {
+		if($users[$user] == $pass) {
+			return $app['twig']->render('dynamic_ok.twig');
+		} else {
+			return $app['twig']->render('dynamic_fail.twig');
+		}
+	} else {
+  		return $app['twig']->render('dynamic_fail.twig');
+	}
 });
 
 $app->run();
