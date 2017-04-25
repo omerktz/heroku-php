@@ -37,4 +37,19 @@ $app->get('/static', function() use($app) {
   return $app['twig']->render('static.html');
 });
 
+$app->get('/dynamic', function($request) use($app) {
+	$app['monolog']->addDebug('dynamic page');
+	$user = $request->query['user']
+	$pass = $request->query['pass']
+	if(array_key_exists($user,$users)) {
+		if($users[$user] == $pass) {
+			return $app['twig']->render('dynamic_ok.twig');
+		} else {
+			return $app['twig']->render('dynamic_fail.twig');
+		}
+	} else {
+  		return $app['twig']->render('dynamic_fail.twig');
+	}
+});
+
 $app->run();
