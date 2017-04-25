@@ -19,7 +19,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 $app->get('/', function() use($app) {
   $app['monolog']->addDebug('index page');
-  return $app['twig']->render('index.twig');
+  return $app['twig']->render('index.html');
 });
 
 $app['monolog']->addDebug('loading users');
@@ -30,11 +30,11 @@ foreach($lines as $line) {
     $user_pass = implode('=', $bits);
     $users[$user_name] = $user_pass;
 }
-$app['monolog']->addDebug('loaded {count($users)} users');
+$app['monolog']->addDebug('loaded '.count($users).' users');
 
 $app->get('/static', function() use($app) {
   $app['monolog']->addDebug('static page');
-  return $app['twig']->render('static.twig');
+  return $app['twig']->render('static.html');
 });
 
 $app->run();
