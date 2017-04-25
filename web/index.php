@@ -39,8 +39,8 @@ $app->get('/static', function() use($app) {
 
 $app->get('/dynamic', function($request) use($app) {
 	$app['monolog']->addDebug('dynamic page');
-	$user = $request->query['user']
-	$pass = $request->query['pass']
+	$user = $request->query['user'];
+	$pass = $request->query['pass'];
 	if(array_key_exists($user,$users)) {
 		if($users[$user] == $pass) {
 			return $app['twig']->render('dynamic_ok.twig');
