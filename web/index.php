@@ -43,12 +43,12 @@ $app->get('/dynamic', function() use($app) {
 	$pass = $_GET['pass'];
 	if(array_key_exists($user,$users)) {
 		if($users[$user] == $pass) {
-			return $app['twig']->render('dynamic_ok.twig');
+			return $app['twig']->render('dynamic_ok.html');
 		} else {
-			return $app['twig']->render('dynamic_fail.twig');
+			return $app['twig']->render('dynamic_fail.html');
 		}
 	} else {
-  		return $app['twig']->render('dynamic_fail.twig');
+  		return $app['twig']->render('dynamic_fail.html');
 	}
 });
 
