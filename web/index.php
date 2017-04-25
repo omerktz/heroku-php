@@ -3,7 +3,7 @@
 require('../vendor/autoload.php');
 
 $app = new Silex\Application();
-$app['debug'] = true;
+$app['debug'] = false;
 
 // Register the monolog logging service
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
@@ -44,7 +44,6 @@ $app->get('/dynamic', function() use($app,$users) {
 	$app['monolog']->addDebug('user is '.$user.', pass is '.$pass);
 	if(array_key_exists($user,$users)) {
 		$app['monolog']->addDebug('user exists');
-		$app['monolog']->addDebug(strcmp($users[$user],$pass));
 		if(strcmp($users[$user],$pass) == 0) {
 			return $app['twig']->render('dynamic_pass.html');
 		} else {
