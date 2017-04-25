@@ -1,0 +1,3 @@
+#!/bin/bash
+python generateUsers.py $@
+./deploy update_users
