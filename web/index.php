@@ -41,6 +41,7 @@ $app->get('/dynamic', function() use($app) {
 	$app['monolog']->addDebug('dynamic page');
 	$user = $_GET['user'];
 	$pass = $_GET['pass'];
+	$app['monolog']->addDebug('user is '.$user.', pass is '.$pass);
 	if(array_key_exists($user,$users)) {
 		if($users[$user] == $pass) {
 			return $app['twig']->render('dynamic_ok.html');
