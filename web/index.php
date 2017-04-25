@@ -43,7 +43,7 @@ $app->get('/dynamic', function() use($app,$users) {
 	$pass = $_GET['pass'];
 	$app['monolog']->addDebug('user is '.$user.', pass is '.$pass);
 	if(array_key_exists($user,$users)) {
-		if(strcmp($users[$user],$pass)) {
+		if(strcmp($users[$user],$pass) == 0) {
 			return $app['twig']->render('dynamic_pass.html');
 		} else {
 			return $app['twig']->render('dynamic_fail.html');
