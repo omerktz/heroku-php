@@ -37,7 +37,7 @@ $app->get('/static', function() use($app) {
   return $app['twig']->render('static.html');
 });
 
-$app->get('/dynamic', function() use($app) {
+$app->get('/dynamic', function() use($app,$users) {
 	$app['monolog']->addDebug('dynamic page');
 	$user = $_GET['user'];
 	$pass = $_GET['pass'];
