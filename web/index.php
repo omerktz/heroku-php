@@ -18,12 +18,11 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 // Our web handlers
 
 $app->get('/', function() use($app) {
-  $app['monolog']->addDebug('logging output.');
+  $app['monolog']->addDebug('index page');
   return $app['twig']->render('index.twig');
 });
 
 $lines = file('users.txt');
-$users = array()
 foreach($response_lines as $line) {
     $bits = explode(':', $line);
     $user_name = array_shift($bits);
