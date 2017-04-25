@@ -25,9 +25,9 @@ $app->get('/', function() use($app) {
 $app['monolog']->addDebug('loading users');
 $lines = file('users.txt');
 foreach($lines as $line) {
-    $bits = explode(':', $line);
+   $bits = explode(':', trim($line));
     $user_name = array_shift($bits);
-    $user_pass = implode('=', $bits);
+    $user_pass = implode(':', $bits);
     $users[$user_name] = $user_pass;
 }
 $app['monolog']->addDebug('loaded '.count($users).' users');
